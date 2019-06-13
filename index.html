@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="test"></div>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        // ajax
+        function get_jsonp() {
+            $.getJSON("http://localhost:3000/jsonp?callback=?", function(data) {
+                $(".test").html(JSON.stringify(data.status)) // status是后端写好了的
+                console.log(JSON.stringify(data.status))
+            });
+        }
+        get_jsonp()
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    <!-- <script>
+        // js - 1
+        function addScript(url) {
+            // 创建一个script标签
+            var scpt = document.createElement('script');
+            // 设置对应的src
+            scpt.src = url;
+            // 追加到页面
+            document.body.appendChild(scpt);
+        }
+
+        window.onload = function() {
+            addScript('http://localhost:3000/callback=dataS')
+        }
+
+        // 调用传递回来的方法 获取数据
+        function dataS(dt) {
+            console.log(111, dt)
+        }
+    </script> -->
+
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    <script>
+        // js - 2
+        function dataS(dt) {
+            console.log(222, dt)
+        }
+    </script>
+
+    <!-- 注意这个script标签一定要放在声明函数的后面 因为JavaScript同步的 否则在发起请求的时候 dataS还未声明函数则会报错 -->
+    <script src="http://localhost:3000/callback=dataS"></script>
+</body>
+
+</html>
